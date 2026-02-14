@@ -56,9 +56,11 @@
         .then(async (response) => {
             let json = await response.json();
             if (response.status == 200) {
-                result.innerHTML = "Missatge enviat correctament! Et respondrem aviat.";
+                form.style.display = "none";
+                result.innerHTML = "<div class='success-msg'><span style='font-size:3rem;'>✅</span><h3>Missatge enviat!</h3><p>Gràcies per contactar. Et respondrem el més aviat possible.</p></div>";
                 result.style.color = "#00ff88";
-                form.reset();
+                result.style.textAlign = "center";
+                result.style.padding = "2rem 0";
             } else {
                 result.innerHTML = json.message || "Hi ha hagut un error.";
                 result.style.color = "#ff0055";
@@ -68,11 +70,6 @@
             console.log(error);
             result.innerHTML = "Hi ha hagut un error de connexió.";
             result.style.color = "#ff0055";
-        })
-        .then(function() {
-            setTimeout(() => {
-                result.style.display = "none";
-            }, 5000);
         });
   });
 </script>
