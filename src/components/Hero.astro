@@ -1,0 +1,113 @@
+---
+import { Image } from 'astro:assets';
+import Socials from './Socials.astro';
+import heroBg from '../assets/images/SnoozParties_ClosingSeason_DSC3038.jpg';
+---
+
+<section id="home" class="hero">
+  <div class="hero-bg-wrapper">
+    <Image 
+      src={heroBg} 
+      alt="Nitro DJ Set Live" 
+      class="hero-bg-img"
+      quality="80"
+      format="webp"
+    />
+  </div>
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content animate-fade-in">
+    <h1 class="dj-name">Nitro sounds</h1>
+    <p class="tagline">House Music. All Night Long.</p>
+    
+    <div class="cta-container">
+      <a href="#music" class="btn">Listen Now</a>
+      <a href="#contact" class="btn btn-secondary">Book Now</a>
+    </div>
+
+    <div class="hero-socials">
+        <Socials />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-bg-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+
+  .hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.2), var(--color-bg));
+    z-index: -1;
+  }
+
+  .hero-content {
+    z-index: 1;
+    padding: 2rem;
+  }
+
+  .dj-name {
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    line-height: 0.9;
+  }
+
+  .tagline {
+    font-size: 1.5rem;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 2.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .cta-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .hero-socials {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .dj-name {
+      font-size: 3.5rem;
+    }
+    
+    .tagline {
+      font-size: 1.1rem;
+    }
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+---
+
+<section id="contact" class="section-contact">
+  <div class="container">
+    <h2 class="section-title">Bookings</h2>
+    
+    <div class="contact-wrapper glass-panel">
+      <div class="contact-info">
+        <h3>Contacte</h3>
+        <p>Contractació, col·laboracions, esdeveniments privats</p>
+      </div>
+
+      <form class="contact-form">
+        <div class="form-group">
+          <input type="text" placeholder="Nom" required />
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Email" required />
+        </div>
+        <div class="form-group">
+          <textarea placeholder="Missatge" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn">Enviar Missatge</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-contact {
+    padding: 8rem 0;
+    padding-bottom: 12rem; /* Extra space at bottom */
+  }
+
+  .contact-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-info h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact-info p {
+    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    text-align: left;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+
+</style>

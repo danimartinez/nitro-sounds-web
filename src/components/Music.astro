@@ -1,0 +1,85 @@
+---
+---
+
+<section id="music" class="section-music">
+  <div class="container">
+    <h2 class="section-title">Latest Mixes</h2>
+    
+    <div class="mix-grid single-mix">
+      <!-- Mix 1 -->
+      <article class="mix-card glass-panel">
+        <div class="mix-info">
+          <h3>Lose yourself to dance Podcats (Ep. 1)</h3>
+          <p class="genre">House Classics</p>
+          <div class="player-wrapper">
+             <iframe 
+                width="100%" 
+                height="120" 
+                src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fdanimartinezlahoz%2Flose-yourself-to-dance-ep1-house-classics%2F" 
+                frameborder="0" 
+                allow="autoplay">
+             </iframe>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="more-music">
+      <a href="https://www.mixcloud.com/danimartinezlahoz/" target="_blank" class="btn btn-secondary">More on Mixcloud</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-music {
+    padding: 8rem 0;
+    position: relative;
+  }
+
+  .mix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .single-mix {
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block; 
+  }
+
+  .mix-card {
+    transition: transform 0.3s ease;
+  }
+
+  .mix-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+  }
+
+  .mix-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .genre {
+    color: var(--color-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+  }
+
+  .player-wrapper {
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .more-music {
+      text-align: center;
+      margin-top: 3rem;
+  }
+</style>

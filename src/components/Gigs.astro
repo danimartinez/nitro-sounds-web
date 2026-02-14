@@ -1,0 +1,103 @@
+---
+---
+
+<section id="gigs" class="section-gigs">
+  <div class="container">
+    <h2 class="section-title">Upcoming Gigs</h2>
+
+    <div class="gigs-list">
+      <!-- Gig 1 -->
+      <div class="gig-item glass-panel">
+        <div class="gig-date">
+          <span class="day">07</span>
+          <span class="month">MAR</span>
+        </div>
+        <div class="gig-details">
+          <h3>Snooz Parties</h3>
+          <p class="location">Sarava, Vic</p>
+        </div>
+        <div class="gig-action">
+          <a href="https://web.fourvenues.com/en/snoozparties/events/snooz-parties-at-sarava-703-07-03-2026-2Y3Y" target="_blank" class="btn btn-sm">Tickets</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-gigs {
+    padding: 8rem 0;
+  }
+
+  .gigs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .gig-item {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    transition: background 0.3s ease;
+  }
+
+  .gig-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .gig-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 2rem;
+    min-width: 60px;
+  }
+
+  .day {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+
+  .month {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .gig-details {
+    flex: 1;
+  }
+
+  .gig-details h3 {
+    margin-bottom: 0.2rem;
+    font-size: 1.5rem;
+  }
+
+  .location {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .btn-sm {
+      padding: 0.5rem 1.5rem;
+      font-size: 0.9rem;
+  }
+
+  @media (max-width: 600px) {
+    .gig-item {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+    
+    .gig-date {
+      margin-right: 0;
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+  }
+</style>
