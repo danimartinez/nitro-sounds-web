@@ -3,7 +3,8 @@
 :root {
   --color-bg: #0a0a0a;
   --color-text: #ededed;
-  --color-primary: #ff0055;
+  --color-primary: #f279bf;
+  /* Updated pink from user request */
   /* Vibrant pink/red for accents */
   --color-secondary: #00e5ff;
   /* Cyan for contrast */
