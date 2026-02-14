@@ -7,10 +7,11 @@ interface Props {
 }
 
 const { title, description = "Official DJ Site" } = Astro.props;
+const ogImage = new URL('/og-image.png', Astro.site || 'https://nitro-sounds-web.pages.dev');
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ca">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -22,6 +23,18 @@ const { title, description = "Official DJ Site" } = Astro.props;
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+
+		<!-- Open Graph / Facebook / WhatsApp -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage.toString()} />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage.toString()} />
 
 		<title>{title}</title>
 	</head>
