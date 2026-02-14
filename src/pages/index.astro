@@ -15,8 +15,14 @@ const description = "Official website of Nitro sounds. Listen to the latest mixe
 	<main>
 		<Hero />
 		<About />
-		<Music />
-		<Gigs />
+		<section class="music-gigs-row">
+			<div class="container">
+				<div class="two-col-grid">
+					<Music />
+					<Gigs />
+				</div>
+			</div>
+		</section>
 		<Contact />
 	</main>
 	
@@ -26,6 +32,23 @@ const description = "Official website of Nitro sounds. Listen to the latest mixe
 </Layout>
 
 <style>
+	.music-gigs-row {
+		padding: 8rem 0;
+	}
+
+	.two-col-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+		align-items: start;
+	}
+
+	@media (max-width: 900px) {
+		.two-col-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	.site-footer {
 		text-align: center;
 		padding: 2rem;
