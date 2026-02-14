@@ -60,12 +60,18 @@ import heroLogo from '../assets/images/hero-logo.png';
     width: 100%;
     height: 100%;
     z-index: -2;
+    background-color: var(--color-bg); /* Black background for the "frame" */
+    overflow: hidden;
   }
 
   .hero-bg-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top center; /* Focus on face */
+    transform: scale(0.95); /* Slight zoom out/frame effect to make subject smaller */
+    transition: transform 0.5s ease;
+    opacity: 0.8; /* Slight dim to help logo pop */
   }
 
   .hero-overlay {
