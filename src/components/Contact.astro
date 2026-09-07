@@ -67,6 +67,14 @@
                 result.style.color = "#00ff88";
                 result.style.textAlign = "center";
                 result.style.padding = "2rem 0";
+
+                // GA4 / GTM DataLayer event
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'generate_lead',
+                    lead_type: 'booking_inquiry',
+                    form_id: 'contact_form'
+                });
             } else {
                 result.innerHTML = json.message || "Hi ha hagut un error.";
                 result.style.color = "#ff0055";

@@ -33,7 +33,7 @@ import heroLogo from '../assets/images/hero-logo.png';
     <p class="tagline">House Music. All Night Long</p>
     
     <div class="cta-container">
-      <a href="#contact" class="btn btn-secondary">Book Now</a>
+      <a href="#contact" id="hero-book-btn" class="btn btn-secondary">Book Now</a>
     </div>
 
     <div class="hero-socials">
@@ -41,6 +41,20 @@ import heroLogo from '../assets/images/hero-logo.png';
     </div>
   </div>
 </section>
+
+<script is:inline>
+  const heroBookBtn = document.getElementById('hero-book-btn');
+  if (heroBookBtn) {
+    heroBookBtn.addEventListener('click', () => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'cta_click',
+        cta_text: 'Book Now',
+        cta_location: 'Hero'
+      });
+    });
+  }
+</script>
 
 <style>
   .hero {
