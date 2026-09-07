@@ -1,4 +1,20 @@
 ---
+const gigs = [
+  {
+    day: "19",
+    month: "SET",
+    title: "La Pèrgola",
+    location: "Vic",
+    isPast: false,
+  },
+  {
+    day: "07",
+    month: "MAR",
+    title: "Snooz Parties",
+    location: "Sarava, Vic",
+    isPast: true,
+  }
+];
 ---
 
 <section id="gigs" class="section-gigs">
@@ -6,20 +22,23 @@
     <h2 class="section-title">Upcoming Gigs</h2>
 
     <div class="gigs-list">
-      <!-- Gig 1 -->
-      <div class="gig-item glass-panel">
-        <div class="gig-date">
-          <span class="day">07</span>
-          <span class="month">MAR</span>
+      {gigs.map((gig) => (
+        <div class={`gig-item glass-panel ${gig.isPast ? 'past' : ''}`}>
+          <div class="gig-date">
+            <span class="day">{gig.day}</span>
+            <span class="month">{gig.month}</span>
+          </div>
+          <div class="gig-details">
+            <h3>{gig.title}</h3>
+            <p class="location">{gig.location}</p>
+          </div>
+          {gig.isPast && (
+            <div class="gig-action">
+              <span class="badge-past">Past Event</span>
+            </div>
+          )}
         </div>
-        <div class="gig-details">
-          <h3>Snooz Parties</h3>
-          <p class="location">Sarava, Vic</p>
-        </div>
-        <div class="gig-action">
-          <a href="https://web.fourvenues.com/en/snoozparties/events/snooz-parties-at-sarava-703-07-03-2026-2Y3Y" target="_blank" rel="noopener noreferrer" class="btn btn-sm">Tickets</a>
-        </div>
-      </div>
+      ))}
     </div>
   </div>
 </section>
@@ -46,6 +65,26 @@
 
   .gig-item:hover {
     background: rgba(255, 255, 255, 0.08);
+  }
+
+  .gig-item.past {
+    opacity: 0.65;
+  }
+
+  .gig-item.past:hover {
+    opacity: 0.95;
+  }
+
+  .badge-past {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   .gig-date {
