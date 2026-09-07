@@ -52,11 +52,12 @@ const ogImage = new URL('/og-image.png', Astro.site || 'https://nitro-sounds.com
 				storedConsent = localStorage.getItem('nitro_consent');
 			} catch (e) {}
 
+			var isGranted = storedConsent === 'granted';
 			gtag('consent', 'default', {
-				'ad_storage': 'denied',
-				'ad_user_data': 'denied',
-				'ad_personalization': 'denied',
-				'analytics_storage': storedConsent === 'granted' ? 'granted' : 'denied'
+				'ad_storage': isGranted ? 'granted' : 'denied',
+				'ad_user_data': isGranted ? 'granted' : 'denied',
+				'ad_personalization': isGranted ? 'granted' : 'denied',
+				'analytics_storage': isGranted ? 'granted' : 'denied'
 			});
 		</script>
 
