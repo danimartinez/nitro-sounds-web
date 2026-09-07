@@ -126,6 +126,12 @@
         });
       }
 
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: status === 'granted' ? 'cookie_consent_granted' : 'cookie_consent_denied',
+        consent_status: status
+      });
+
       hideBanner();
     }
 
