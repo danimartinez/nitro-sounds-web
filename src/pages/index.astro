@@ -6,12 +6,10 @@ import Music from '../components/Music.astro';
 import Gigs from '../components/Gigs.astro';
 import Contact from '../components/Contact.astro';
 
-// Page Metadata
-const title = "Nitro Sounds | House music";
-const description = "Nitro Sounds. Pàgina web de Nitro sounds amb informació de música, events i contractació";
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
-<Layout title={title} description={description}>
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
 	<main>
 		<Hero />
 		<About />
@@ -27,7 +25,7 @@ const description = "Nitro Sounds. Pàgina web de Nitro sounds amb informació d
 	</main>
 	
 	<footer class="site-footer">
-		<p>&copy; {new Date().getFullYear()} Nitro sounds. All rights reserved.</p>
+		<p>&copy; {new Date().getFullYear()} Nitro Sounds. All rights reserved.</p>
 	</footer>
 </Layout>
 

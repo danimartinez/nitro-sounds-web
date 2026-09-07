@@ -1,5 +1,4 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+// Global site constants
+export const SITE_TITLE = "Nitro Sounds | House music";
+export const SITE_DESCRIPTION = "Nitro Sounds. Pàgina oficial amb informació de música, esdeveniments i contractació.";
 
-export const SITE_TITLE = "Astro Blog";
-export const SITE_DESCRIPTION = "Welcome to my website!";

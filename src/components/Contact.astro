@@ -16,15 +16,15 @@
         <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
 
         <div class="form-group">
-          <input type="text" name="name" placeholder="Nom" required />
+          <input type="text" name="name" id="name" placeholder="Nom" aria-label="El teu nom" required />
         </div>
         <div class="form-group">
-          <input type="email" name="email" placeholder="Email" required />
+          <input type="email" name="email" id="email" placeholder="Email" aria-label="El teu correu electrònic" required />
         </div>
         <div class="form-group">
-          <textarea name="message" placeholder="Missatge" rows="4" required></textarea>
+          <textarea name="message" id="message" placeholder="Missatge" aria-label="El teu missatge" rows="4" required></textarea>
         </div>
-        <button type="submit" class="btn">Enviar Missatge</button>
+        <button type="submit" id="submit-btn" class="btn">Enviar Missatge</button>
       </form>
       <div id="result" class="result-message"></div>
     </div>
@@ -34,12 +34,18 @@
 <script is:inline>
   const form = document.getElementById('form');
   const result = document.getElementById('result');
+  const submitBtn = document.getElementById('submit-btn');
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(form);
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Enviant...";
+    }
 
     result.innerHTML = "Enviant...";
     result.style.color = "var(--color-text)";
@@ -64,12 +70,20 @@
             } else {
                 result.innerHTML = json.message || "Hi ha hagut un error.";
                 result.style.color = "#ff0055";
+                if (submitBtn) {
+                  submitBtn.disabled = false;
+                  submitBtn.innerText = "Enviar Missatge";
+                }
             }
         })
         .catch(error => {
-            console.log(error);
+            console.error(error);
             result.innerHTML = "Hi ha hagut un error de connexió.";
             result.style.color = "#ff0055";
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerText = "Enviar Missatge";
+            }
         });
   });
 </script>
