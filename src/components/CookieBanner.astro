@@ -2,17 +2,70 @@
 // src/components/CookieBanner.astro
 ---
 
-<div id="cookie-banner" class="cookie-banner hidden" role="dialog" aria-live="polite" aria-label="Gestió de cookies">
+<div id="cookie-banner" class="cookie-banner hidden" role="dialog" aria-modal="true" aria-labelledby="cookie-title" aria-describedby="cookie-desc">
   <div class="cookie-content">
-    <p class="cookie-text">
-      Utilitzem galetes analítiques pròpies i de tercers per conèixer com interactues amb la web i millorar la teva experiència. Pots acceptar-les o rebutjar-les.
-    </p>
+    <div class="cookie-header">
+      <h3 id="cookie-title">Gestió de galetes i privadesa</h3>
+      <p id="cookie-desc" class="cookie-text">
+        A <strong>Nitro Sounds</strong> utilitzem galetes tècniques necessàries per al funcionament del lloc web, així com eines analítiques i de contingut extern per millorar la teva experiència. Pots acceptar-les totes, rebutjar les no necessàries o consultar el detall de les eines de tercers que fem servir.
+      </p>
+    </div>
+
+    <!-- Accordion to see third-party tools (RGPD / AEPD compliance) -->
+    <div class="cookie-details-wrapper">
+      <button id="cookie-details-toggle" type="button" class="cookie-details-btn" aria-expanded="false" aria-controls="cookie-vendors-list">
+        <span>Veure eines de tercers i finalitats</span>
+        <svg class="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div id="cookie-vendors-list" class="cookie-vendors-list hidden">
+        <!-- 1. Tècniques -->
+        <div class="vendor-item">
+          <div class="vendor-header">
+            <strong>1. Galetes tècniques (Necessàries)</strong>
+            <span class="badge-required">Sempre actives</span>
+          </div>
+          <p class="vendor-desc">
+            Imprescindibles perquè la pàgina funcioni amb seguretat, protecció contra atacs DDoS i per recordar la teva pròpia decisió de consentiment.
+          </p>
+          <p class="vendor-tools"><em>Eines:</em> Cloudflare Inc. i memòria local de la web (localStorage).</p>
+        </div>
+
+        <!-- 2. Analítica -->
+        <div class="vendor-item">
+          <div class="vendor-header">
+            <strong>2. Galetes analítiques i de mesura</strong>
+            <span class="badge-optional">Opcionals</span>
+          </div>
+          <p class="vendor-desc">
+            Recullen informació estadística i agregada de visites, navegació i origen del trànsit per optimitzar els continguts i detectar errors.
+          </p>
+          <p class="vendor-tools"><em>Proveïdor:</em> <strong>Google Tag Manager / Google Analytics 4</strong> (Google Ireland Limited).</p>
+        </div>
+
+        <!-- 3. Multimèdia / Reproductors -->
+        <div class="vendor-item">
+          <div class="vendor-header">
+            <strong>3. Serveis multimèdia integrats</strong>
+            <span class="badge-optional">Opcionals</span>
+          </div>
+          <p class="vendor-desc">
+            Permeten reproduir les sessions i podcasts de música directament des de la web sense sortir de la pàgina.
+          </p>
+          <p class="vendor-tools"><em>Proveïdor:</em> <strong>Mixcloud</strong> (Mixcloud Ltd.).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions: Reject / Accept with equal weight for RGPD -->
     <div class="cookie-actions">
       <button id="cookie-reject" type="button" class="btn-cookie btn-reject">
-        Rebutjar
+        Rebutjar no essencials
       </button>
       <button id="cookie-accept" type="button" class="btn-cookie btn-accept">
-        Acceptar
+        Acceptar-les totes
       </button>
     </div>
   </div>
@@ -23,19 +76,43 @@
     const banner = document.getElementById('cookie-banner');
     const acceptBtn = document.getElementById('cookie-accept');
     const rejectBtn = document.getElementById('cookie-reject');
+    const detailsToggle = document.getElementById('cookie-details-toggle');
+    const vendorsList = document.getElementById('cookie-vendors-list');
 
     if (!banner || !acceptBtn || !rejectBtn) return;
 
+    // Toggle vendors accordion
+    if (detailsToggle && vendorsList) {
+      detailsToggle.addEventListener('click', function() {
+        const isExpanded = detailsToggle.getAttribute('aria-expanded') === 'true';
+        detailsToggle.setAttribute('aria-expanded', !isExpanded);
+        vendorsList.classList.toggle('hidden');
+        detailsToggle.classList.toggle('expanded');
+      });
+    }
+
+    // Check stored consent
     let consent = null;
     try {
       consent = localStorage.getItem('nitro_consent');
     } catch (e) {}
 
-    if (!consent) {
+    function showBanner() {
       banner.classList.remove('hidden');
       requestAnimationFrame(() => {
         banner.classList.add('visible');
       });
+    }
+
+    function hideBanner() {
+      banner.classList.remove('visible');
+      setTimeout(() => {
+        banner.classList.add('hidden');
+      }, 300);
+    }
+
+    if (!consent) {
+      showBanner();
     }
 
     function setConsent(status) {
@@ -49,10 +126,7 @@
         });
       }
 
-      banner.classList.remove('visible');
-      setTimeout(() => {
-        banner.classList.add('hidden');
-      }, 300);
+      hideBanner();
     }
 
     acceptBtn.addEventListener('click', function() {
@@ -61,6 +135,11 @@
 
     rejectBtn.addEventListener('click', function() {
       setConsent('denied');
+    });
+
+    // RGPD Requirement: allow re-opening the banner anytime via custom event
+    window.addEventListener('open-cookie-banner', function() {
+      showBanner();
     });
   })();
 </script>
@@ -72,15 +151,17 @@
     left: 50%;
     transform: translate(-50%, 20px);
     width: calc(100% - 2rem);
-    max-width: 520px;
-    background: rgba(14, 14, 14, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 1rem;
-    padding: 1.25rem 1.5rem;
-    box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    z-index: 1000;
+    max-width: 580px;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+    background: rgba(13, 13, 13, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 1.25rem;
+    padding: 1.5rem 1.75rem;
+    box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    z-index: 9999;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -99,64 +180,170 @@
   .cookie-content {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
+  }
+
+  .cookie-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.2px;
   }
 
   .cookie-text {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.8);
     margin: 0;
   }
 
-  .cookie-actions {
+  /* Accordion details */
+  .cookie-details-wrapper {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.75rem 0;
+  }
+
+  .cookie-details-btn {
     display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--color-primary);
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+  }
+
+  .cookie-details-btn:hover {
+    color: white;
+  }
+
+  .toggle-icon {
+    transition: transform 0.25s ease;
+  }
+
+  .cookie-details-btn.expanded .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .cookie-vendors-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-top: 0.85rem;
+    padding-top: 0.5rem;
+  }
+
+  .cookie-vendors-list.hidden {
+    display: none;
+  }
+
+  .vendor-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+  }
+
+  .vendor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.35rem;
+  }
+
+  .vendor-header strong {
+    color: white;
+    font-size: 0.85rem;
+  }
+
+  .badge-required {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    background: rgba(0, 255, 136, 0.15);
+    color: #00ff88;
+    font-weight: 600;
+  }
+
+  .badge-optional {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+  }
+
+  .vendor-desc {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.45;
+    margin-bottom: 0.3rem;
+  }
+
+  .vendor-tools {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.78rem;
+    margin: 0;
+  }
+
+  /* Actions buttons with equal weight for RGPD */
+  .cookie-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
   }
 
   .btn-cookie {
-    padding: 0.55rem 1.2rem;
-    font-size: 0.85rem;
+    padding: 0.75rem 1.2rem;
+    font-size: 0.88rem;
     font-weight: 600;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.2s ease;
     border: none;
     font-family: var(--font-main);
+    text-align: center;
   }
 
   .btn-reject {
-    background: transparent;
-    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .btn-reject:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
   }
 
   .btn-accept {
     background: var(--color-primary);
     color: white;
+    box-shadow: 0 4px 15px -2px rgba(242, 121, 191, 0.35);
   }
 
   .btn-accept:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px -2px rgba(242, 121, 191, 0.4);
+    box-shadow: 0 6px 20px -2px rgba(242, 121, 191, 0.5);
   }
 
-  @media (max-width: 480px) {
-    .cookie-actions {
-      flex-direction: column-reverse;
-      gap: 0.5rem;
+  @media (max-width: 500px) {
+    .cookie-banner {
+      padding: 1.25rem;
     }
 
-    .btn-cookie {
-      width: 100%;
-      text-align: center;
-      padding: 0.7rem;
+    .cookie-actions {
+      grid-template-columns: 1fr;
     }
   }
 </style>
+
