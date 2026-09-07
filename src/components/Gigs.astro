@@ -1,5 +1,14 @@
 ---
-const gigs = [
+interface Gig {
+  day: string;
+  month: string;
+  year?: string;
+  title: string;
+  location: string;
+  isPast: boolean;
+}
+
+const gigs: Gig[] = [
   {
     day: "19",
     month: "SET",
@@ -8,8 +17,23 @@ const gigs = [
     isPast: false,
   },
   {
+    day: "13",
+    month: "MAR",
+    title: "Fidelity Club",
+    location: "Sarava, Vic",
+    isPast: true,
+  },
+  {
     day: "07",
     month: "MAR",
+    title: "Snooz Parties",
+    location: "Sarava, Vic",
+    isPast: true,
+  },
+  {
+    day: "26",
+    month: "DES",
+    year: "2025",
     title: "Snooz Parties",
     location: "Sarava, Vic",
     isPast: true,
@@ -27,6 +51,7 @@ const gigs = [
           <div class="gig-date">
             <span class="day">{gig.day}</span>
             <span class="month">{gig.month}</span>
+            {gig.year && <span class="year">{gig.year}</span>}
           </div>
           <div class="gig-details">
             <h3>{gig.title}</h3>
@@ -106,6 +131,13 @@ const gigs = [
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
+  }
+
+  .year {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.5px;
   }
 
   .gig-details {
